@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:8080/springboot-rest/api/v1/users';
+  private baseUrl = 'http://localhost:8000/springboot-rest/api/v1/users';
 
   constructor(private http: HttpClient) { }
 
