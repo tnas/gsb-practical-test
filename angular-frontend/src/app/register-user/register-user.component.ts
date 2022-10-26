@@ -12,7 +12,6 @@ export class RegisterUserComponent implements OnInit {
 
   user: User = new User();
   submitted = false;
-  successSave = true;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -21,7 +20,6 @@ export class RegisterUserComponent implements OnInit {
 
   newUser(): void {
     this.submitted = false;
-    this.successSave = false;
     this.user = new User();
   }
 
@@ -31,11 +29,9 @@ export class RegisterUserComponent implements OnInit {
         console.log(data);
         this.user = new User();
         this.goToList();
-        this.successSave = true;
       },
       error : (err) => {
         console.log(err);
-        this.successSave = false;
       }
     })
   }
