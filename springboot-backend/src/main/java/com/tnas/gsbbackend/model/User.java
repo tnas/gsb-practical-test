@@ -1,5 +1,5 @@
 package com.tnas.gsbbackend.model;
 
-public record User(Integer id, String firstName, String lastName, String email) {
+public record User(Long id, String firstName, String lastName, String email) {
 
 }

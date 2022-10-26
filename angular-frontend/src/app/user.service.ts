@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,11 +11,12 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getUsersList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
+  }
+
   registerUser(user: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, user);
   }
 
-  getUsersList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
-  }
 }

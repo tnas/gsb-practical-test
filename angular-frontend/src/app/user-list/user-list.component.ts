@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
   }
 
   reloadData() {
-    // this.users = this.userService.getUsersList();
+    this.users = this.userService.getUsersList();
   }
 
 }

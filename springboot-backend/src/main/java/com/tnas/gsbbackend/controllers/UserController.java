@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tnas.gsbbackend.ApplicationConfig;
 import com.tnas.gsbbackend.model.User;
 import com.tnas.gsbbackend.services.UserService;
 
@@ -18,12 +19,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
     
-	@GetMapping("${api.users}")
+	@GetMapping(path = { ApplicationConfig.USERS_API })
     public List<User> getUsers() {
         return this.userService.getAllUsers();
     }
 	
-	@PostMapping("${api.users}")
+	@PostMapping(path = { ApplicationConfig.USERS_API })
     public void addUser(@RequestBody User user) {
         this.userService.saveUser(user);
     }
