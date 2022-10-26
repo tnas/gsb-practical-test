@@ -1,4 +1,4 @@
-package springbootbackend.rest.requests;
+package com.tnas.gsbbackend.controllers;
 
 import com.hackerrank.test.utility.Order;
 import com.hackerrank.test.utility.OrderedTestRunner;
@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,7 +24,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @RunWith(OrderedTestRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GreetingsControllerTest {
+public class UserControllerTest {
+	
+	private static final String API_URL = "/api/v1/users";
+	
     @ClassRule
     public static final SpringClassRule springClassRule = new SpringClassRule();
 
@@ -38,65 +42,44 @@ public class GreetingsControllerTest {
 
     @BeforeClass
     public static void setUpClass() {
-        TestWatchman.watchman.registerClass(GreetingsControllerTest.class);
+        TestWatchman.watchman.registerClass(UserControllerTest.class);
     }
 
     @AfterClass
     public static void tearDownClass() {
-        TestWatchman.watchman.createReport(GreetingsControllerTest.class);
+        TestWatchman.watchman.createReport(UserControllerTest.class);
     }
 
-    /**
-     *
-     * @throws Exception
-     *
-     * It tests response to be "Hello Java!"
-     */
     @Test
     @Order(1)
-    public void greetJava() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/Java"))
+    public void whenGettingEmptyUsersList_ThenSuccess() throws Exception {
+    	
+        var usersList = mockMvc.perform(MockMvcRequestBuilders.get(API_URL))
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andReturn()
             .getResponse()
             .getContentAsString();
 
-        Assert.assertEquals(response, "Hello Java!");
+        Assert.assertEquals("[]", usersList);
     }
-
-    /**
-     *
-     * @throws Exception
-     *
-     * It tests response to be "Hello Spring!"
-     */
+    
     @Test
     @Order(2)
-    public void greetSpring() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/Spring"))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+    public void whenAddingOneUserAndGettingList_ThenSuccessOneElementList() throws Exception {
+    	
+    	var jsonUser = "{\"id\":1,\"firstName\":\"Thiago\",\"lastName\":\"Nascimento\",\"email\":\"nascimenthiago@gmail.com\"}";
+    	
+        mockMvc.perform(MockMvcRequestBuilders.post(API_URL)
+        			.contentType(MediaType.APPLICATION_JSON).content(jsonUser))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+        
+        var usersList = mockMvc.perform(MockMvcRequestBuilders.get(API_URL))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
-        Assert.assertEquals(response, "Hello Spring!");
+        Assert.assertEquals("[" + jsonUser + "]", usersList);
     }
 
-    /**
-     *
-     * @throws Exception
-     *
-     * It tests response to be "Hello RodJohnson!"
-     */
-    @Test
-    @Order(3)
-    public void greetRodJohnson() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/RodJohnson"))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
-
-        Assert.assertEquals(response, "Hello RodJohnson!");
-    }
 }
