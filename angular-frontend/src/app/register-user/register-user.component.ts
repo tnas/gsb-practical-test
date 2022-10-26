@@ -24,11 +24,16 @@ export class RegisterUserComponent implements OnInit {
   }
 
   save() {
-    this.userService.registerUser(this.user).subscribe(data => {
-      console.log(data);
-      this.user = new User();
-      this.goToList();
-    }, error => console.log(error));
+    this.userService.registerUser(this.user).subscribe({
+      next : (data) => {
+        console.log(data);
+        this.user = new User();
+        this.goToList();
+      },
+      error : (err) => {
+        console.log(err);
+      }
+    })
   }
 
   onSubmit() {
