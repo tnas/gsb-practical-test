@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'GBS Java Practical Test';
+  title = 'GSB Java Practical Test';
 }
