@@ -1,4 +1,8 @@
 # GSB Java Practical Test
+
+The Single Page Application was deployed on AWS and
+can be accessed via the link [GSB](http://3.87.8.194/).
+
 #### Create a single page application with the following details:
 - Use Java for the backend (Spring boot)
 - Use Angular for the frontend
