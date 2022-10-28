@@ -21,4 +21,8 @@ public class UserService {
 	public void saveUser(User user) {
 		this.userRepo.save(user);
 	}
+	
+	public void deleteUsers() {
+		this.userRepo.delete();
+	}
 }

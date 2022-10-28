@@ -26,4 +26,8 @@ public class UserRepository {
 	public void save(User user) {
 		this.inMemoryUsers.add(user);
 	}
+	
+	public void delete() {
+		this.inMemoryUsers.clear();
+	}
 }
